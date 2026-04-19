@@ -46,12 +46,28 @@ const footerLinks = {
     ["16 Inch Pizza Boxes", "/products/16-inch-pizza-box"],
     ["Custom Printed Boxes", "/products/custom-printed-pizza-boxes"],
   ],
+  "Geo: By State": [
+    ["Pizza Box Supplier USA", "/pizza-box-supplier-usa"],
+    ["Pizza Box Supplier California", "/pizza-box-supplier-california"],
+    ["Pizza Box Supplier Texas", "/pizza-box-supplier-texas"],
+    ["Pizza Box Supplier Florida", "/pizza-box-supplier-florida"],
+    ["Pizza Box Supplier New York", "/pizza-box-supplier-new-york"],
+    ["Pizza Box Supplier New Jersey", "/pizza-box-supplier-new-jersey"],
+    ["Pizza Box Supplier Illinois", "/pizza-box-supplier-illinois"],
+  ],
+  "Logistics & Pricing": [
+    ["Shipping Pizza Boxes to USA", "/shipping-pizza-boxes-to-usa"],
+    ["Container Loading Guide", "/pizza-box-container-loading"],
+    ["Import Process USA", "/pizza-box-import-process-usa"],
+    ["Freight Cost Estimator", "/pizza-box-freight-cost-estimator"],
+    ["Pizza Box Price Guide", "/pizza-box-price"],
+    ["Cost Per 1,000 Units", "/pizza-box-cost-per-1000"],
+    ["Custom Pizza Box Cost", "/custom-pizza-box-cost"],
+  ],
   "Company": [
     ["About Us", "/about-us"],
     ["Blog", "/blog"],
     ["Contact", "/contact"],
-    ["Pizza Box Supplier USA", "/pizza-box-supplier-usa"],
-    ["Pizza Box Supplier California", "/pizza-box-supplier-california"],
   ],
 };
 
@@ -187,7 +203,7 @@ export default function RootLayout({ children }) {
         {/* ── Footer ── */}
         <footer className="mt-10 border-t border-gray-200 bg-gray-900 text-gray-400">
           <div className="mx-auto max-w-7xl px-4 py-10">
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
               {/* Brand column */}
               <div className="space-y-4">
                 <Link href="/" className="flex items-center gap-2">
