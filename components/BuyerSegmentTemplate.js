@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Script from "next/script";
 import { CTAButtons, LeadForm, TrustBadges } from "@/components/sections";
 import { CONTACT } from "@/lib/content";
 
@@ -9,8 +10,28 @@ import { CONTACT } from "@/lib/content";
 export default function BuyerSegmentTemplate({ page }) {
   const waLink = `${CONTACT.whatsappRaw}?text=I%20want%20pricing%20for%20pizza%20boxes%20-%20${encodeURIComponent(page.segment)}`;
 
+  const faqSchema = page.segmentFaqs
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: page.segmentFaqs.map((f) => ({
+          "@type": "Question",
+          name: f.q,
+          acceptedAnswer: { "@type": "Answer", text: f.a },
+        })),
+      }
+    : null;
+
   return (
     <>
+      {faqSchema && (
+        <Script
+          id={`${page.slug}-faq-schema`}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
+
       {/* ── Hero ── */}
       <section className="overflow-hidden rounded-2xl bg-gray-900 px-6 py-10 sm:px-10">
         <div className="mx-auto max-w-4xl space-y-5">
@@ -78,6 +99,32 @@ export default function BuyerSegmentTemplate({ page }) {
         </div>
       </section>
 
+      {/* ── Recommended sizes ── */}
+      {page.recommendedSizes?.length > 0 && (
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-gray-900">
+            Recommended Pizza Box Sizes for {page.segment}
+          </h2>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {page.recommendedSizes.map((size) => (
+              <Link
+                key={size.slug}
+                href={`/products/${size.slug}`}
+                className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm hover:border-orange-300 hover:shadow-md transition-all"
+              >
+                <p className="font-bold text-gray-900">{size.size}</p>
+                <p className="mt-1 text-xs text-gray-500">{size.note}</p>
+                <p className="mt-2 text-xs font-semibold text-orange-600">View specs →</p>
+              </Link>
+            ))}
+          </div>
+          <p className="text-xs text-gray-500">
+            All sizes available in blank, 1-color, 2–4 color and full CMYK print.{" "}
+            <Link href="/products" className="font-semibold text-orange-600 hover:underline">Browse all sizes →</Link>
+          </p>
+        </section>
+      )}
+
       {/* ── Volume assumptions ── */}
       <section className="rounded-xl border border-blue-100 bg-blue-50 px-6 py-5 space-y-3">
         <h2 className="text-xl font-bold text-gray-900">
@@ -130,6 +177,38 @@ export default function BuyerSegmentTemplate({ page }) {
           ))}
         </div>
       </section>
+
+      {/* ── Segment FAQ ── */}
+      {page.segmentFaqs?.length > 0 && (
+        <section className="space-y-3">
+          <h2 className="text-2xl font-bold text-gray-900">
+            FAQ: Pizza Boxes for {page.segment}
+          </h2>
+          <div className="space-y-2">
+            {page.segmentFaqs.map((faq) => (
+              <details
+                key={faq.q}
+                className="group overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm"
+              >
+                <summary className="flex cursor-pointer items-center justify-between gap-4 px-5 py-4 font-semibold text-gray-900 hover:bg-gray-50 list-none">
+                  <span>{faq.q}</span>
+                  <svg
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    className="h-5 w-5 flex-shrink-0 transition-transform duration-200 group-open:rotate-180"
+                    aria-hidden="true"
+                  >
+                    <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clipRule="evenodd" />
+                  </svg>
+                </summary>
+                <div className="border-t border-gray-100 px-5 py-4 text-sm leading-relaxed text-gray-600">
+                  {faq.a}
+                </div>
+              </details>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* ── Final CTA ── */}
       <section className="rounded-2xl bg-orange-600 px-8 py-10 text-center text-white shadow-lg">

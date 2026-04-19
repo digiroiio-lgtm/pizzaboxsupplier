@@ -1,13 +1,34 @@
 import Link from "next/link";
+import Script from "next/script";
 import { CTAButtons, LeadForm, TrustBadges } from "@/components/sections";
 
 /**
  * GeoPageTemplate – shared layout for all state-level pizza box supplier pages.
- * Accepts a `page` object from `statePages` in lib/content.js plus a `stateCta` string.
+ * Accepts a `page` object from `statePages` in lib/content.js.
  */
 export default function GeoPageTemplate({ page }) {
+  const faqSchema = page.geoFaqs
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: page.geoFaqs.map((f) => ({
+          "@type": "Question",
+          name: f.q,
+          acceptedAnswer: { "@type": "Answer", text: f.a },
+        })),
+      }
+    : null;
+
   return (
     <>
+      {faqSchema && (
+        <Script
+          id={`${page.slug}-faq-schema`}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
+
       {/* ── Hero ── */}
       <section className="overflow-hidden rounded-2xl bg-gray-900 px-6 py-10 sm:px-10">
         <div className="mx-auto max-w-4xl space-y-5">
@@ -104,6 +125,23 @@ export default function GeoPageTemplate({ page }) {
         </p>
       </section>
 
+      {/* ── Distribution hubs ── */}
+      {page.distributionHubs?.length > 0 && (
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-gray-900">
+            Distribution Hubs Serving {page.state}
+          </h2>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {page.distributionHubs.map((hub) => (
+              <div key={hub.city} className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+                <p className="font-bold text-gray-900 text-sm">{hub.city}</p>
+                <p className="mt-1 text-xs text-gray-500">{hub.note}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
       {/* ── Cross-links ── */}
       <section className="rounded-xl border border-gray-100 bg-gray-50 px-6 py-5">
         <h2 className="mb-3 text-lg font-bold text-gray-900">Resources for {page.state} Buyers</h2>
@@ -130,6 +168,38 @@ export default function GeoPageTemplate({ page }) {
           </li>
         </ul>
       </section>
+
+      {/* ── Geo FAQ ── */}
+      {page.geoFaqs?.length > 0 && (
+        <section className="space-y-3">
+          <h2 className="text-2xl font-bold text-gray-900">
+            FAQ: Pizza Box Supplier for {page.state}
+          </h2>
+          <div className="space-y-2">
+            {page.geoFaqs.map((faq) => (
+              <details
+                key={faq.q}
+                className="group overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm"
+              >
+                <summary className="flex cursor-pointer items-center justify-between gap-4 px-5 py-4 font-semibold text-gray-900 hover:bg-gray-50 list-none">
+                  <span>{faq.q}</span>
+                  <svg
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    className="h-5 w-5 flex-shrink-0 transition-transform duration-200 group-open:rotate-180"
+                    aria-hidden="true"
+                  >
+                    <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clipRule="evenodd" />
+                  </svg>
+                </summary>
+                <div className="border-t border-gray-100 px-5 py-4 text-sm leading-relaxed text-gray-600">
+                  {faq.a}
+                </div>
+              </details>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* ── Final CTA ── */}
       <section className="rounded-2xl bg-orange-600 px-8 py-10 text-center text-white shadow-lg">
