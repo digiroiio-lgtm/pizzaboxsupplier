@@ -37,7 +37,7 @@ export default function RootLayout({ children }) {
     "@type": "Organization",
     name: "PizzaBoxSupplier",
     url: SITE_URL,
-    logo: `${SITE_URL}/logo.png`,
+    logo: `${SITE_URL}/logo.svg`,
     telephone: CONTACT.phone,
     email: CONTACT.email,
     address: {

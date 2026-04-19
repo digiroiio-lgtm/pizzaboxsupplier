@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import { CONTACT, CORE_BOOSTERS, TRUST_BADGES, productFaqs } from "@/lib/content";
 
@@ -62,19 +65,57 @@ export function FAQSection() {
 }
 
 export function LeadForm() {
+  const [status, setStatus] = useState("");
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const payload = Object.fromEntries(formData.entries());
+
+    const response = await fetch("/api/quote", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    if (response.ok) {
+      setStatus("Thanks. Your quote request was received.");
+      event.currentTarget.reset();
+      return;
+    }
+
+    setStatus("Submission failed. Please email sales@pizzaboxsupplier.com.");
+  }
+
   return (
     <section className="space-y-3" id="lead-form">
       <h2 className="text-2xl font-bold">Request Quote in 24 Hours</h2>
-      <form className="grid gap-3 sm:grid-cols-2">
-        <input required placeholder="Company Name" className="rounded border border-zinc-300 p-2" />
-        <input required type="email" placeholder="Business Email" className="rounded border border-zinc-300 p-2" />
-        <input placeholder="Required Box Size" className="rounded border border-zinc-300 p-2" />
-        <input placeholder="Order Volume" className="rounded border border-zinc-300 p-2" />
-        <textarea placeholder="Project Details" className="sm:col-span-2 rounded border border-zinc-300 p-2" rows={4} />
+      <form className="grid gap-3 sm:grid-cols-2" action="/api/quote" method="post" onSubmit={handleSubmit}>
+        <label className="space-y-1">
+          <span className="text-sm font-medium">Company Name</span>
+          <input required name="companyName" placeholder="Company Name" className="w-full rounded border border-zinc-300 p-2" />
+        </label>
+        <label className="space-y-1">
+          <span className="text-sm font-medium">Business Email</span>
+          <input required name="businessEmail" type="email" placeholder="Business Email" className="w-full rounded border border-zinc-300 p-2" />
+        </label>
+        <label className="space-y-1">
+          <span className="text-sm font-medium">Required Box Size</span>
+          <input name="requiredBoxSize" placeholder="Required Box Size" className="w-full rounded border border-zinc-300 p-2" />
+        </label>
+        <label className="space-y-1">
+          <span className="text-sm font-medium">Order Volume</span>
+          <input name="orderVolume" placeholder="Order Volume" className="w-full rounded border border-zinc-300 p-2" />
+        </label>
+        <label className="space-y-1 sm:col-span-2">
+          <span className="text-sm font-medium">Project Details</span>
+          <textarea name="projectDetails" placeholder="Project Details" className="w-full rounded border border-zinc-300 p-2" rows={4} />
+        </label>
         <button type="submit" className="sm:col-span-2 rounded bg-zinc-900 px-4 py-2 font-semibold text-white hover:bg-zinc-700">
           Request Bulk Quote
         </button>
       </form>
+      {status ? <p className="text-sm font-medium text-emerald-700">{status}</p> : null}
       <p className="text-sm text-zinc-700">Email: {CONTACT.email} • Phone: {CONTACT.phone}</p>
     </section>
   );
