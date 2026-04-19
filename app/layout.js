@@ -20,6 +20,27 @@ export const metadata = {
     "custom pizza boxes wholesale",
     "pizza box manufacturer",
   ],
+  openGraph: {
+    type: "website",
+    siteName: "PizzaBoxSupplier",
+    title: "Pizza Box Supplier USA | Wholesale Pizza Boxes & Custom Manufacturing",
+    description:
+      "Factory-direct wholesale pizza boxes for USA distributors. BRCGS certified. 400+ buyers in 20+ countries. Get a structured quote in 24 hours.",
+    url: SITE_URL,
+    images: [
+      {
+        url: `${SITE_URL}/logo.svg`,
+        alt: "PizzaBoxSupplier — Factory-Direct Wholesale Pizza Boxes",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary",
+    title: "Pizza Box Supplier USA | Wholesale Pizza Boxes & Custom Manufacturing",
+    description:
+      "Factory-direct wholesale pizza boxes for USA distributors. BRCGS certified. 400+ buyers in 20+ countries. Get a structured quote in 24 hours.",
+    images: [`${SITE_URL}/logo.svg`],
+  },
 };
 
 const menu = [

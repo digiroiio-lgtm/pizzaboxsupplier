@@ -12,9 +12,21 @@ export async function generateMetadata({ params }) {
   const { slug } = await params;
   const post = blogPosts.find((item) => item.slug === slug);
   if (!post) return {};
+  const title = `${post.title} | PizzaBoxSupplier`;
   return {
-    title: `${post.title} | PizzaBoxSupplier`,
+    title,
     description: post.description,
+    openGraph: {
+      type: "article",
+      title,
+      description: post.description,
+      url: `${SITE_URL}/blog/${slug}`,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: post.description,
+    },
   };
 }
 

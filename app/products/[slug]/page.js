@@ -15,15 +15,33 @@ export async function generateMetadata({ params }) {
   if (!product) return {};
 
   if (product.type === "custom") {
+    const title = `${product.size} – Wholesale & Private Label | PizzaBoxSupplier`;
+    const description = `${product.size} for ${product.uses}. Factory-direct wholesale pricing, full CMYK print, private label, MOQ from 10,000 units. 24h quote.`;
     return {
-      title: `${product.size} – Wholesale & Private Label | PizzaBoxSupplier`,
-      description: `${product.size} for ${product.uses}. Factory-direct wholesale pricing, full CMYK print, private label, MOQ from 10,000 units. 24h quote.`,
+      title,
+      description,
+      openGraph: {
+        type: "website",
+        title,
+        description,
+        url: `${SITE_URL}/products/${slug}`,
+      },
+      twitter: { card: "summary", title, description },
     };
   }
 
+  const title = `${product.size} Pizza Box – Wholesale Bulk Supply for USA Distributors`;
+  const description = `${product.size} pizza box supplier USA. Dimensions ${product.dims ?? ""}, ${product.board ?? "corrugated"}, ${product.cap40ft ?? ""} units per 40ft container. FOB from ${product.priceBlank ?? ""}/unit. 24h quote.`;
   return {
-    title: `${product.size} Pizza Box – Wholesale Bulk Supply for USA Distributors`,
-    description: `${product.size} pizza box supplier USA. Dimensions ${product.dims ?? ""}, ${product.board ?? "corrugated"}, ${product.cap40ft ?? ""} units per 40ft container. FOB from ${product.priceBlank ?? ""}/unit. 24h quote.`,
+    title,
+    description,
+    openGraph: {
+      type: "website",
+      title,
+      description,
+      url: `${SITE_URL}/products/${slug}`,
+    },
+    twitter: { card: "summary", title, description },
   };
 }
 
