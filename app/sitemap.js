@@ -2,6 +2,7 @@ import { blogPosts, products, SITE_URL } from "@/lib/content";
 
 const HIGH_PRIORITY_PREFIXES = [
   "/pizza-box-supplier",
+  "/pizza-boxes-for",
   "/pizza-box-price",
   "/pizza-box-cost-per-1000",
   "/custom-pizza-box-cost",
@@ -32,6 +33,8 @@ export default function sitemap() {
     "/pizza-box-supplier-florida",
     "/pizza-box-supplier-new-jersey",
     "/pizza-box-supplier-illinois",
+    // Geo: country
+    "/pizza-box-supplier-uk",
     // Logistics pages
     "/shipping-pizza-boxes-to-usa",
     "/pizza-box-container-loading",
@@ -41,6 +44,19 @@ export default function sitemap() {
     "/pizza-box-price",
     "/pizza-box-cost-per-1000",
     "/custom-pizza-box-cost",
+    // Buyer segment pages
+    "/pizza-boxes-for-distributors",
+    "/pizza-boxes-for-restaurant-chains",
+    "/pizza-boxes-for-wholesale-importers",
+    "/pizza-boxes-for-ghost-kitchens",
+    "/pizza-boxes-for-frozen-food-brands",
+    "/pizza-boxes-for-los-angeles-restaurants",
+    "/pizza-boxes-for-takeaway-business",
+    // Trust pages
+    "/factory",
+    "/certifications",
+    "/export-markets",
+    "/case-studies",
   ];
 
   return [
