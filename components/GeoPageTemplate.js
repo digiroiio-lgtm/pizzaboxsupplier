@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Script from "next/script";
 import { CTAButtons, LeadForm, TrustBadges } from "@/components/sections";
+import { SITE_URL } from "@/lib/content";
 
 /**
  * GeoPageTemplate – shared layout for all state-level pizza box supplier pages.
@@ -19,6 +20,16 @@ export default function GeoPageTemplate({ page }) {
       }
     : null;
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: "Pizza Box Supplier USA", item: `${SITE_URL}/pizza-box-supplier-usa` },
+      { "@type": "ListItem", position: 3, name: page.h1, item: `${SITE_URL}/${page.slug}` },
+    ],
+  };
+
   return (
     <>
       {faqSchema && (
@@ -28,6 +39,11 @@ export default function GeoPageTemplate({ page }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
         />
       )}
+      <Script
+        id={`${page.slug}-breadcrumb-schema`}
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
 
       {/* ── Hero ── */}
       <section className="overflow-hidden rounded-2xl bg-gray-900 px-6 py-10 sm:px-10">

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Script from "next/script";
 import { CTAButtons, LeadForm, TrustBadges } from "@/components/sections";
-import { CONTACT } from "@/lib/content";
+import { CONTACT, SITE_URL } from "@/lib/content";
 
 /**
  * BuyerSegmentTemplate – shared layout for buyer-segment pages.
@@ -22,6 +22,16 @@ export default function BuyerSegmentTemplate({ page }) {
       }
     : null;
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: "Wholesale Pizza Boxes", item: `${SITE_URL}/wholesale` },
+      { "@type": "ListItem", position: 3, name: page.h1, item: `${SITE_URL}/${page.slug}` },
+    ],
+  };
+
   return (
     <>
       {faqSchema && (
@@ -31,6 +41,11 @@ export default function BuyerSegmentTemplate({ page }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
         />
       )}
+      <Script
+        id={`${page.slug}-breadcrumb-schema`}
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
 
       {/* ── Hero ── */}
       <section className="overflow-hidden rounded-2xl bg-gray-900 px-6 py-10 sm:px-10">

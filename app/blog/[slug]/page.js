@@ -1,7 +1,8 @@
 import Link from "next/link";
+import Script from "next/script";
 import { notFound } from "next/navigation";
 import { CTAButtons, LeadForm } from "@/components/sections";
-import { authors, blogPosts } from "@/lib/content";
+import { authors, blogPosts, SITE_URL } from "@/lib/content";
 
 export function generateStaticParams() {
   return blogPosts.map((post) => ({ slug: post.slug }));
@@ -32,8 +33,51 @@ export default async function BlogPostPage({ params }) {
   const author = authors[post.author];
   const relatedPosts = blogPosts.filter((p) => p.slug !== slug).slice(0, 3);
 
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.description,
+    url: `${SITE_URL}/blog/${post.slug}`,
+    author: author
+      ? {
+          "@type": "Person",
+          name: author.name,
+          jobTitle: author.role,
+          url: `${SITE_URL}/authors/${post.author}`,
+        }
+      : undefined,
+    publisher: {
+      "@type": "Organization",
+      name: "PizzaBoxSupplier",
+      url: SITE_URL,
+      logo: { "@type": "ImageObject", url: `${SITE_URL}/logo.svg` },
+    },
+    mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE_URL}/blog/${post.slug}` },
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: "Blog", item: `${SITE_URL}/blog` },
+      { "@type": "ListItem", position: 3, name: post.title, item: `${SITE_URL}/blog/${post.slug}` },
+    ],
+  };
+
   return (
     <>
+      <Script
+        id={`article-schema-${post.slug}`}
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      <Script
+        id={`breadcrumb-schema-${post.slug}`}
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       {/* ── Hero ── */}
       <section className="overflow-hidden rounded-2xl bg-gray-900 px-6 py-10 sm:px-10">
         <div className="mx-auto max-w-4xl space-y-4">

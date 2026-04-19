@@ -7,5 +7,8 @@ export async function POST(request) {
     return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
   }
 
+  // buyerSegment is captured for downstream routing (CRM / email follow-up flow)
+  // body.buyerSegment: "distributor" | "chain" | "importer" | "ghost-kitchen" | "wholesale" | "other"
+
   return NextResponse.json({ ok: true });
 }

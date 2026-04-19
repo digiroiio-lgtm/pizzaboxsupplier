@@ -3,6 +3,7 @@ import Script from "next/script";
 import "./globals.css";
 import { CONTACT, SITE_URL } from "@/lib/content";
 import ExitIntentPopup from "@/components/ExitIntentPopup";
+import StickyCtaBar from "@/components/StickyCtaBar";
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),
@@ -89,7 +90,7 @@ const footerLinks = {
 export default function RootLayout({ children }) {
   const orgSchema = {
     "@context": "https://schema.org",
-    "@type": "Organization",
+    "@type": ["Organization", "Manufacturer", "LocalBusiness"],
     name: "PizzaBoxSupplier",
     url: SITE_URL,
     logo: `${SITE_URL}/logo.svg`,
@@ -102,6 +103,15 @@ export default function RootLayout({ children }) {
       addressCountry: "TR",
     },
     sameAs: [CONTACT.whatsapp],
+    description:
+      "Factory-direct wholesale pizza box manufacturer. Trusted by 400+ buyers in 20+ countries. BRCGS, ISO 22000 and HACCP certified.",
+    numberOfEmployees: { "@type": "QuantitativeValue", value: 150 },
+    areaServed: ["US", "GB", "AU", "CA", "DE", "FR", "NL"],
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Wholesale Pizza Boxes",
+      url: `${SITE_URL}/products`,
+    },
   };
 
   return (
@@ -135,6 +145,10 @@ export default function RootLayout({ children }) {
                 </svg>
                 <span className="font-medium text-emerald-700">HACCP</span>
               </span>
+              {/* Social proof — visible on mobile too */}
+              <span className="hidden sm:inline font-medium text-gray-500">
+                Trusted by <strong className="text-orange-600">400+</strong> buyers in <strong className="text-orange-600">20+</strong> countries
+              </span>
             </div>
             <div className="flex items-center gap-4">
               <a href={`tel:${CONTACT.phone.replace(/\s/g, "")}`} className="hover:text-orange-600">{CONTACT.phone}</a>
@@ -159,7 +173,11 @@ export default function RootLayout({ children }) {
             <div className="hidden items-center gap-3 sm:flex">
               <div className="text-right text-xs text-gray-500">
                 <p className="font-semibold text-gray-700">Quote in 24 hours</p>
-                <p>35+ containers / month • 20+ countries</p>
+                <p>
+                  <span className="font-semibold text-orange-600">400+</span> buyers ·{" "}
+                  <span className="font-semibold text-orange-600">20+</span> countries ·{" "}
+                  35 containers/month
+                </p>
               </div>
               <Link
                 href="/get-quote"
@@ -197,12 +215,15 @@ export default function RootLayout({ children }) {
         {/* ── Exit intent popup ── */}
         <ExitIntentPopup />
 
-        {/* ── Floating CTAs ── */}
+        {/* ── Mobile sticky CTA bar (replaces floating buttons on small screens) ── */}
+        <StickyCtaBar />
+
+        {/* ── Floating CTAs — desktop only (sm+) ── */}
         <a
           href={CONTACT.whatsapp}
           target="_blank"
           rel="noopener noreferrer"
-          className="fixed bottom-20 right-4 z-30 flex items-center gap-2 rounded-full bg-green-600 px-4 py-2.5 text-sm font-semibold text-white shadow-lg hover:bg-green-700 hover:shadow-xl"
+          className="fixed bottom-20 right-4 z-30 hidden sm:flex items-center gap-2 rounded-full bg-green-600 px-4 py-2.5 text-sm font-semibold text-white shadow-lg hover:bg-green-700 hover:shadow-xl"
           aria-label="Talk to Export Manager via WhatsApp"
         >
           <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4" aria-hidden="true">
@@ -212,7 +233,7 @@ export default function RootLayout({ children }) {
         </a>
         <Link
           href="/get-quote"
-          className="fixed bottom-6 right-4 z-30 rounded-full bg-orange-600 px-4 py-2.5 text-sm font-bold text-white shadow-lg hover:bg-orange-700 hover:shadow-xl"
+          className="fixed bottom-6 right-4 z-30 hidden sm:block rounded-full bg-orange-600 px-4 py-2.5 text-sm font-bold text-white shadow-lg hover:bg-orange-700 hover:shadow-xl"
           aria-label="Get container pricing"
         >
           Get Container Pricing

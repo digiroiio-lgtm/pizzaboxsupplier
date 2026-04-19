@@ -251,6 +251,22 @@ export function LeadForm() {
               className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm shadow-sm placeholder:text-gray-400 focus:border-orange-500 focus:ring-2 focus:ring-orange-100 outline-none"
             />
           </label>
+          <label className="space-y-1.5 sm:col-span-2">
+            <span className="block text-sm font-semibold text-gray-700">I am a:</span>
+            <select
+              name="buyerSegment"
+              defaultValue=""
+              className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm shadow-sm bg-white focus:border-orange-500 focus:ring-2 focus:ring-orange-100 outline-none"
+            >
+              <option value="" disabled>Select your buyer type…</option>
+              <option value="distributor">Distributor / Importer</option>
+              <option value="chain">Restaurant Chain / Franchise</option>
+              <option value="importer">Wholesale Importer</option>
+              <option value="ghost-kitchen">Ghost Kitchen / Virtual Brand</option>
+              <option value="wholesale">Wholesale Buyer / Buying Group</option>
+              <option value="other">Other</option>
+            </select>
+          </label>
           <label className="space-y-1.5">
             <span className="block text-sm font-semibold text-gray-700">Required Box Size</span>
             <input
