@@ -115,7 +115,7 @@ export default function GeoPageTemplate({ page }) {
           </li>
           <li>
             <Link href="/pizza-box-import-process-usa" className="font-semibold text-orange-600 hover:underline">
-              US import process for pizza boxes (HS 4819.20) →
+              US import process for pizza boxes (HS 4819.10) →
             </Link>
           </li>
           <li>

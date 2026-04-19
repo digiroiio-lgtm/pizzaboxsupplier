@@ -7,6 +7,18 @@ export const metadata = {
     "PizzaBoxSupplier quality certifications: BRCGS food safety, ISO 22000 food management system, HACCP compliance. Full documentation available for buyers.",
 };
 
+const CERT_STYLES = {
+  emerald: {
+    wrapper: "rounded-xl border border-emerald-100 bg-emerald-100 text-emerald-700",
+  },
+  blue: {
+    wrapper: "rounded-xl border border-blue-100 bg-blue-100 text-blue-700",
+  },
+  orange: {
+    wrapper: "rounded-xl border border-orange-100 bg-orange-100 text-orange-700",
+  },
+};
+
 const certifications = [
   {
     name: "BRCGS (British Retail Consortium Global Standards)",
@@ -64,7 +76,7 @@ export default function CertificationsPage() {
         {certifications.map((cert) => (
           <div key={cert.name} className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm space-y-3">
             <div className="flex items-start gap-4">
-              <span className={`flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-${cert.color}-100 text-${cert.color}-700 text-xs font-extrabold text-center`}>
+              <span className={`flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl text-xs font-extrabold text-center ${CERT_STYLES[cert.color].wrapper}`}>
                 {cert.badge}
               </span>
               <div>
