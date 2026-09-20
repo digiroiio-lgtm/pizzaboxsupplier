@@ -202,9 +202,18 @@ export default function RootLayout({ children }) {
                   <li><Link href="/get-quote" className="hover:text-white transition-colors">Request Pricing</Link></li>
                 </ul>
                 <div className="mt-4 space-y-1 text-xs text-gray-500">
-                  <Link href="/pizza-box-supplier-usa" className="block hover:text-gray-300 transition-colors">Pizza Box Supplier — USA</Link>
-                  <Link href="/pizza-box-supplier-california" className="block hover:text-gray-300 transition-colors">Pizza Box Supplier — California</Link>
-                  <Link href="/pizza-box-supplier-new-york" className="block hover:text-gray-300 transition-colors">Pizza Box Supplier — New York</Link>
+                  <Link href="/pizza-box-supplier-usa" className="block hover:text-gray-300 transition-colors">USA Supply</Link>
+                  <div className="pt-1 pb-0.5 text-gray-600 font-semibold text-xs uppercase tracking-wide">East Coast</div>
+                  <Link href="/pizza-box-supplier-northeast" className="block hover:text-gray-300 transition-colors">Northeast</Link>
+                  <Link href="/pizza-box-supplier-mid-atlantic" className="block hover:text-gray-300 transition-colors">Mid-Atlantic</Link>
+                  <Link href="/pizza-box-supplier-southeast" className="block hover:text-gray-300 transition-colors">Southeast</Link>
+                  <div className="pt-1 pb-0.5 text-gray-600 font-semibold text-xs uppercase tracking-wide">States</div>
+                  <Link href="/pizza-box-supplier-new-york" className="block hover:text-gray-300 transition-colors">New York</Link>
+                  <Link href="/pizza-box-supplier-new-jersey" className="block hover:text-gray-300 transition-colors">New Jersey</Link>
+                  <Link href="/pizza-box-supplier-virginia" className="block hover:text-gray-300 transition-colors">Virginia</Link>
+                  <Link href="/pizza-box-supplier-georgia" className="block hover:text-gray-300 transition-colors">Georgia</Link>
+                  <Link href="/pizza-box-supplier-florida" className="block hover:text-gray-300 transition-colors">Florida</Link>
+                  <Link href="/pizza-box-supplier-california" className="block hover:text-gray-300 transition-colors">California</Link>
                 </div>
               </div>
             </div>
