@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import { SITE_URL, BRAND, products, sizes } from '@/lib/content'
-import { BreadcrumbNav, QuoteCTA, LeadForm } from '@/components/sections'
+import { SITE_URL, BRAND, products, portPages, regionPages } from '@/lib/content'
+import { BreadcrumbNav, LeadForm } from '@/components/sections'
 
 export const metadata = {
   title: 'Wholesale Pizza Box Supplier — USA | High-Volume Supply Programs',
@@ -64,6 +64,57 @@ export default function SupplierUSAPage() {
           <Link href="/products" style={{ color: 'var(--color-wpb-red)' }} className="text-sm font-semibold hover:underline">
             View all products →
           </Link>
+        </div>
+      </section>
+
+      {/* East Coast Container Supply Programs */}
+      <section className="mb-14">
+        <h2 style={{ color: 'var(--color-wpb-navy)' }} className="text-xl font-bold mb-3">East Coast Container Supply Programs</h2>
+        <p className="text-gray-600 leading-relaxed mb-6 max-w-3xl">
+          Container-volume pizza box programs for distributors and high-volume buyers across the Northeast, Mid-Atlantic and Southeast, with freight planning through major East Coast gateways.
+        </p>
+
+        {/* Supply chain diagram */}
+        <div className="rounded-xl p-6 sm:p-8 mb-8" style={{ background: 'var(--color-wpb-navy)' }}>
+          <div className="text-xs font-semibold uppercase tracking-wider text-white/60 text-center mb-5">Supply Chain</div>
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            {[
+              { label: 'Turkey', sub: 'Manufacturing' },
+              { label: 'Atlantic', sub: 'Ocean Freight' },
+              { label: 'East Coast Ports', sub: 'NY/NJ · Savannah · Virginia', highlight: true },
+              { label: 'Distribution Centers', sub: 'Regional DCs' },
+              { label: 'U.S. Buyers', sub: 'Nationwide' },
+            ].map((step, i) => (
+              <div key={step.label} className="flex items-center gap-2">
+                <div className={`text-center px-3 py-2 rounded-lg ${step.highlight ? 'bg-white/20 ring-2 ring-white/30' : 'bg-white/10'}`}>
+                  <div className="font-semibold text-sm text-white">{step.label}</div>
+                  <div className="text-xs text-white/50 mt-0.5">{step.sub}</div>
+                </div>
+                {i < 4 && <span className="text-white/30 font-bold text-lg hidden sm:block">→</span>}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Region hub links */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+          {regionPages.map((r) => (
+            <Link key={r.slug} href={`/${r.slug}`} style={{ border: '1px solid var(--color-wpb-gray-border)', background: 'white' }} className="group rounded-xl p-5 hover:shadow-md transition-shadow">
+              <div style={{ color: 'var(--color-wpb-red)' }} className="text-xs font-semibold uppercase tracking-wide mb-1">{r.primaryPort}</div>
+              <div style={{ color: 'var(--color-wpb-navy)' }} className="font-bold text-sm mb-2">{r.region}</div>
+              <div className="text-xs text-gray-500 leading-relaxed">{r.statesCovered.slice(0, 4).join(', ')}{r.statesCovered.length > 4 ? ' & more' : ''}</div>
+              <div style={{ color: 'var(--color-wpb-red)' }} className="text-xs font-semibold mt-3 group-hover:underline">View programs →</div>
+            </Link>
+          ))}
+        </div>
+
+        {/* Port gateway links */}
+        <div className="flex flex-wrap gap-2">
+          {portPages.map((p) => (
+            <Link key={p.slug} href={`/${p.slug}`} style={{ border: '1px solid var(--color-wpb-gray-border)', color: 'var(--color-wpb-navy)' }} className="text-xs font-semibold px-3 py-1.5 rounded-full bg-white hover:shadow-sm transition-shadow">
+              {p.portName} →
+            </Link>
+          ))}
         </div>
       </section>
 

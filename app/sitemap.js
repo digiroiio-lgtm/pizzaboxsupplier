@@ -1,4 +1,4 @@
-import { SITE_URL, products, sizes, locationPages } from '@/lib/content'
+import { SITE_URL, products, sizes, locationPages, portPages, regionPages, statePages } from '@/lib/content'
 
 const lastModified = new Date().toISOString()
 
@@ -20,14 +20,14 @@ export default function sitemap() {
     priority,
   }))
 
-  const productPages = products.map(({ slug }) => ({
+  const productPagesUrls = products.map(({ slug }) => ({
     url: `${SITE_URL}/products/${slug}`,
     lastModified,
     changeFrequency: 'monthly',
     priority: 0.8,
   }))
 
-  const sizePages = sizes.map(({ slug }) => ({
+  const sizePagesUrls = sizes.map(({ slug }) => ({
     url: `${SITE_URL}/pizza-box-sizes/${slug}`,
     lastModified,
     changeFrequency: 'monthly',
@@ -38,14 +38,38 @@ export default function sitemap() {
     url: `${SITE_URL}/${slug}`,
     lastModified,
     changeFrequency: 'monthly',
+    priority: 0.65,
+  }))
+
+  const portPagesUrls = portPages.map(({ slug }) => ({
+    url: `${SITE_URL}/${slug}`,
+    lastModified,
+    changeFrequency: 'monthly',
+    priority: 0.7,
+  }))
+
+  const regionPagesUrls = regionPages.map(({ slug }) => ({
+    url: `${SITE_URL}/${slug}`,
+    lastModified,
+    changeFrequency: 'monthly',
+    priority: 0.65,
+  }))
+
+  const statePagesUrls = statePages.map(({ slug }) => ({
+    url: `${SITE_URL}/${slug}`,
+    lastModified,
+    changeFrequency: 'monthly',
     priority: 0.6,
   }))
 
   // Blog posts are noindex until content is published — excluded from sitemap
   return [
     ...staticPages,
-    ...productPages,
-    ...sizePages,
+    ...productPagesUrls,
+    ...sizePagesUrls,
     ...locationPagesUrls,
+    ...portPagesUrls,
+    ...regionPagesUrls,
+    ...statePagesUrls,
   ]
 }
