@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { SITE_URL, BRAND, sizes, products } from '@/lib/content'
 import { contentGuides, GUIDE_CTA_CONFIGS } from '@/lib/guides'
 import { BreadcrumbNav, LeadForm } from '@/components/sections'
+import { GuideVisual } from '@/components/diagrams'
 
 export function generateStaticParams() {
   return contentGuides.map(({ slug }) => ({ slug }))
@@ -153,6 +154,9 @@ export default function GuideDetailPage({ params }) {
             </h1>
             <p className="text-gray-600 max-w-3xl leading-relaxed text-lg">{guide.intro}</p>
           </div>
+
+          {/* Guide-specific visual diagram */}
+          <GuideVisual slug={guide.slug} />
 
           {/* Sections */}
           {guide.sections.map((section, i) => renderSection(section, i))}

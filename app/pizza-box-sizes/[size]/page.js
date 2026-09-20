@@ -79,10 +79,10 @@ export default function SizePage({ params }) {
                   ['Size', `${size.inches} inch (${size.inches}" x ${size.inches}" nominal)`],
                   ['Material', 'Food-grade corrugated board — grade confirmed at quote'],
                   ['Print Options', 'Plain, single-color or custom printed — options confirmed at quote'],
-                  ['MOQ', 'BUSINESS_DATA_REQUIRED — confirmed during quoting'],
-                  ['Cases per Pallet', 'BUSINESS_DATA_REQUIRED — confirmed during quoting'],
-                  ['Boxes per Container', 'BUSINESS_DATA_REQUIRED — confirmed during quoting'],
-                  ['Lead Time', 'BUSINESS_DATA_REQUIRED — confirmed during quoting'],
+                  ['MOQ', 'Confirmed during quoting based on size and specification'],
+                  ['Cases per Pallet', 'Confirmed during quoting based on size and board grade'],
+                  ['Boxes per Container', 'Confirmed during quoting based on size and pallet configuration'],
+                  ['Lead Time', 'Confirmed during quoting based on volume and specification'],
                 ]}
               />
             </section>

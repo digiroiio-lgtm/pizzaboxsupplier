@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { SITE_URL, RFQ_COMPANY_TYPES, RFQ_VOLUME_TIERS, RFQ_FREQUENCIES, VALUE_PROPS } from '@/lib/content'
 
 export function ValuePropBadges() {
@@ -82,15 +83,25 @@ export function ProductCard({ product }) {
       className="group block rounded-lg p-5 hover:shadow-md transition-shadow"
     >
       <div
-        style={{ background: 'var(--color-wpb-gray)', width: '100%', height: '80px', borderRadius: '4px', marginBottom: '12px' }}
-        className="flex items-center justify-center"
-        aria-hidden="true"
+        style={{ position: 'relative', width: '100%', height: '140px', borderRadius: '4px', marginBottom: '12px', overflow: 'hidden', background: 'var(--color-wpb-gray)' }}
       >
-        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
-          <rect x="4" y="12" width="32" height="20" rx="2" stroke="var(--color-wpb-navy)" strokeWidth="2"/>
-          <path d="M4 17h32" stroke="var(--color-wpb-navy)" strokeWidth="1.5"/>
-          <path d="M12 12V8a2 2 0 012-2h12a2 2 0 012 2v4" stroke="var(--color-wpb-navy)" strokeWidth="2"/>
-        </svg>
+        {product.image ? (
+          <Image
+            src={product.image}
+            alt={product.title}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            style={{ objectFit: 'cover', objectPosition: 'center' }}
+          />
+        ) : (
+          <div className="flex items-center justify-center w-full h-full" aria-hidden="true">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+              <rect x="4" y="12" width="32" height="20" rx="2" stroke="var(--color-wpb-navy)" strokeWidth="2"/>
+              <path d="M4 17h32" stroke="var(--color-wpb-navy)" strokeWidth="1.5"/>
+              <path d="M12 12V8a2 2 0 012-2h12a2 2 0 012 2v4" stroke="var(--color-wpb-navy)" strokeWidth="2"/>
+            </svg>
+          </div>
+        )}
       </div>
       <h3
         style={{ color: 'var(--color-wpb-navy)' }}

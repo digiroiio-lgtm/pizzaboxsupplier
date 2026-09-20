@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import Script from 'next/script'
 import Link from 'next/link'
@@ -58,6 +59,17 @@ export default function ProductPage({ params }) {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           <div className="lg:col-span-2">
+            {product.image && (
+              <div style={{ position: 'relative', width: '100%', height: '280px', borderRadius: '10px', overflow: 'hidden', marginBottom: '28px' }}>
+                <Image
+                  src={product.image}
+                  alt={product.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 66vw"
+                  style={{ objectFit: 'cover', objectPosition: 'center top' }}
+                />
+              </div>
+            )}
             <h1 style={{ color: 'var(--color-wpb-navy)' }} className="text-3xl sm:text-4xl font-bold mb-4">
               {product.title}
             </h1>
@@ -106,14 +118,14 @@ export default function ProductPage({ params }) {
                   ['Construction', 'Standard corrugated construction — specification confirmed at quote'],
                   ['Print Options', product.slug.includes('plain') ? 'Unprinted (blank)' : 'Plain, single-color, multi-color or full custom — confirmed at quote'],
                   ['Available Sizes', product.sizes.join(', ')],
-                  ['MOQ', 'BUSINESS_DATA_REQUIRED — confirmed during quoting based on size and specification'],
-                  ['Lead Time', 'BUSINESS_DATA_REQUIRED — confirmed during quoting based on volume and specification'],
-                  ['Pallet Qty', 'BUSINESS_DATA_REQUIRED — confirmed during quoting based on size and board grade'],
-                  ['Container Qty', 'BUSINESS_DATA_REQUIRED — confirmed during quoting based on size and pallet configuration'],
+                  ['MOQ', 'Confirmed during quoting based on size and specification'],
+                  ['Lead Time', 'Confirmed during quoting based on volume and specification'],
+                  ['Pallet Qty', 'Confirmed during quoting based on size and board grade'],
+                  ['Container Qty', 'Confirmed during quoting based on size and pallet configuration'],
                 ]}
               />
               <p className="mt-3 text-xs text-gray-500">
-                BUSINESS_DATA_REQUIRED entries are confirmed with exact values during the pricing process.
+                Exact values for MOQ, lead time, pallet and container quantities are confirmed during the pricing process.
               </p>
             </section>
 

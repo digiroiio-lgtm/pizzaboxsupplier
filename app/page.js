@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import Script from 'next/script'
 import {
@@ -49,43 +50,55 @@ export default function HomePage() {
 
       {/* 1. Hero */}
       <section
-        style={{ background: 'linear-gradient(135deg, var(--color-wpb-navy-dark) 0%, var(--color-wpb-navy) 60%, var(--color-wpb-navy-mid) 100%)' }}
-        className="px-4 py-16 sm:py-24"
+        style={{ background: 'linear-gradient(135deg, var(--color-wpb-navy-dark) 0%, var(--color-wpb-navy) 60%, var(--color-wpb-navy-mid) 100%)', overflow: 'hidden' }}
+        className="px-4 py-16 sm:py-20"
       >
         <div className="max-w-7xl mx-auto">
-          <div className="max-w-3xl">
-            <div
-              style={{ background: 'var(--color-wpb-red)', color: 'white' }}
-              className="inline-block px-3 py-1 text-xs font-bold uppercase tracking-wide rounded mb-5"
-            >
-              USA B2B Wholesale Supply
-            </div>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-5 leading-tight">
-              Wholesale Pizza Boxes for High-Volume U.S. Buyers
-            </h1>
-            <p className="text-lg text-gray-300 mb-8 leading-relaxed max-w-2xl">
-              Bulk pizza box supply for distributors, restaurant chains, franchise groups and high-volume foodservice buyers requiring container-scale purchasing.
-            </p>
-            <div className="flex flex-wrap gap-3 mb-8">
-              <Link
-                href="/get-quote"
-                style={{ background: 'var(--color-wpb-red)' }}
-                className="inline-flex items-center gap-2 px-7 py-3.5 font-bold text-white rounded text-base hover:opacity-90 transition-opacity"
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            <div>
+              <div
+                style={{ background: 'var(--color-wpb-red)', color: 'white' }}
+                className="inline-block px-3 py-1 text-xs font-bold uppercase tracking-wide rounded mb-5"
               >
-                Request Container Pricing
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                  <path d="M3 8h10M8 3l5 5-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </Link>
-              <Link
-                href="/products"
-                style={{ border: '1px solid rgba(255,255,255,0.4)', color: 'white' }}
-                className="inline-flex items-center px-7 py-3.5 font-semibold rounded text-base hover:bg-white/10 transition-colors"
-              >
-                View Products
-              </Link>
+                USA B2B Wholesale Supply
+              </div>
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-5 leading-tight">
+                Wholesale Pizza Boxes for High-Volume U.S. Buyers
+              </h1>
+              <p className="text-lg text-gray-300 mb-8 leading-relaxed">
+                Bulk pizza box supply for distributors, restaurant chains, franchise groups and high-volume foodservice buyers requiring container-scale purchasing.
+              </p>
+              <div className="flex flex-wrap gap-3 mb-8">
+                <Link
+                  href="/get-quote"
+                  style={{ background: 'var(--color-wpb-red)' }}
+                  className="inline-flex items-center gap-2 px-7 py-3.5 font-bold text-white rounded text-base hover:opacity-90 transition-opacity"
+                >
+                  Request Container Pricing
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M3 8h10M8 3l5 5-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </Link>
+                <Link
+                  href="/products"
+                  style={{ border: '1px solid rgba(255,255,255,0.4)', color: 'white' }}
+                  className="inline-flex items-center px-7 py-3.5 font-semibold rounded text-base hover:bg-white/10 transition-colors"
+                >
+                  View Products
+                </Link>
+              </div>
+              <ValuePropBadges />
             </div>
-            <ValuePropBadges />
+            <div className="relative hidden lg:block" style={{ height: '440px', borderRadius: '12px', overflow: 'hidden' }}>
+              <Image
+                src="/lpack-1776968243178-header.png"
+                alt="Wholesale pizza boxes stacked for distribution — container-volume supply programs"
+                fill
+                priority
+                sizes="50vw"
+                style={{ objectFit: 'cover', objectPosition: 'center' }}
+              />
+            </div>
           </div>
         </div>
       </section>
