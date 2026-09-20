@@ -1,6 +1,20 @@
 import Link from 'next/link'
+import Script from 'next/script'
 import { SITE_URL, BRAND, sizes } from '@/lib/content'
 import { BreadcrumbNav, QuoteCTA, SizeCard } from '@/components/sections'
+
+const itemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Pizza Box Sizes — Wholesale Ordering Guide',
+  url: `${SITE_URL}/pizza-box-sizes`,
+  itemListElement: sizes.map((size, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: size.title,
+    url: `${SITE_URL}/pizza-box-sizes/${size.slug}`,
+  })),
+}
 
 export const metadata = {
   title: 'Pizza Box Sizes — Wholesale Ordering Guide (8" to 20")',
@@ -22,6 +36,7 @@ const breadcrumbs = [
 export default function SizesPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
+      <Script id="sizes-itemlist" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
       <BreadcrumbNav items={breadcrumbs} />
 
       <div className="mb-10">

@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import { SITE_URL, BRAND, resourceGuides, sizes, products } from '@/lib/content'
+import { SITE_URL, BRAND, sizes, products } from '@/lib/content'
+import { contentGuides } from '@/lib/guides'
 import { BreadcrumbNav, QuoteCTA } from '@/components/sections'
 
 export const metadata = {
@@ -19,7 +20,23 @@ const breadcrumbs = [
   { label: 'Resources' },
 ]
 
+const CLUSTER_LABELS = {
+  sizes: 'Size Guides',
+  wholesale: 'Wholesale & Container',
+  cost: 'Pricing & Cost',
+  custom: 'Custom Printing',
+  materials: 'Materials & Specification',
+  procurement: 'Procurement & Import',
+}
+
+const CLUSTER_ORDER = ['sizes', 'wholesale', 'cost', 'custom', 'materials', 'procurement']
+
 export default function ResourcesPage() {
+  const guidesByCluster = CLUSTER_ORDER.reduce((acc, cluster) => {
+    acc[cluster] = contentGuides.filter((g) => g.cluster === cluster)
+    return acc
+  }, {})
+
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
       <BreadcrumbNav items={breadcrumbs} />
@@ -33,37 +50,40 @@ export default function ResourcesPage() {
         </p>
       </div>
 
-      {/* Buyer guides */}
-      <section className="mb-14">
-        <h2 style={{ color: 'var(--color-wpb-navy)' }} className="text-xl font-bold mb-5">Buyer Guides</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {resourceGuides.map((guide) => (
-            <div
-              key={guide.slug}
-              style={{ border: '1px solid var(--color-wpb-gray-border)', background: 'white' }}
-              className="rounded-lg p-5"
-            >
-              <div
-                style={{ background: 'var(--color-wpb-gray)', color: 'var(--color-wpb-navy)', fontSize: '10px', fontWeight: 700, letterSpacing: '0.05em', textTransform: 'uppercase' }}
-                className="inline-block px-2 py-1 rounded mb-3"
-              >
-                {guide.category}
-              </div>
-              <h3 style={{ color: 'var(--color-wpb-navy)' }} className="font-bold text-sm mb-2 leading-snug">
-                {guide.title}
-              </h3>
-              <p className="text-xs text-gray-600 leading-relaxed mb-4">{guide.description}</p>
-              <Link
-                href="/get-quote"
-                style={{ color: 'var(--color-wpb-red)' }}
-                className="text-xs font-semibold hover:underline"
-              >
-                Request Pricing →
-              </Link>
+      {/* Buyer guides by cluster */}
+      {CLUSTER_ORDER.map((cluster) => {
+        const clusterGuides = guidesByCluster[cluster]
+        if (!clusterGuides || clusterGuides.length === 0) return null
+        return (
+          <section key={cluster} className="mb-12">
+            <h2 style={{ color: 'var(--color-wpb-navy)' }} className="text-xl font-bold mb-5">{CLUSTER_LABELS[cluster]}</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {clusterGuides.map((guide) => (
+                <Link
+                  key={guide.slug}
+                  href={`/resources/${guide.slug}`}
+                  style={{ border: '1px solid var(--color-wpb-gray-border)', background: 'white' }}
+                  className="group rounded-lg p-5 hover:shadow-md transition-shadow flex flex-col"
+                >
+                  <div
+                    style={{ background: 'var(--color-wpb-gray)', color: 'var(--color-wpb-navy)', fontSize: '10px', fontWeight: 700, letterSpacing: '0.05em', textTransform: 'uppercase' }}
+                    className="inline-block px-2 py-1 rounded mb-3 self-start"
+                  >
+                    {guide.category}
+                  </div>
+                  <h3 style={{ color: 'var(--color-wpb-navy)' }} className="font-bold text-sm mb-2 leading-snug group-hover:underline flex-1">
+                    {guide.title}
+                  </h3>
+                  <p className="text-xs text-gray-600 leading-relaxed mb-4">{guide.description}</p>
+                  <span style={{ color: 'var(--color-wpb-red)' }} className="text-xs font-semibold">
+                    Read guide →
+                  </span>
+                </Link>
+              ))}
             </div>
-          ))}
-        </div>
-      </section>
+          </section>
+        )
+      })}
 
       {/* Size reference */}
       <section className="mb-14">

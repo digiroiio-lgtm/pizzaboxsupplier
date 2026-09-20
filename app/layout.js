@@ -30,7 +30,22 @@ const organizationSchema = {
   logo: `${SITE_URL}/logo.svg`,
   email: CONTACT.email,
   // BUSINESS_DATA_REQUIRED: Add verified phone and address before launch
-  sameAs: [],
+  // BUSINESS_DATA_REQUIRED: sameAs — add LinkedIn, Google Business Profile URLs when available
+}
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: BRAND.name,
+  url: SITE_URL,
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: {
+      '@type': 'EntryPoint',
+      urlTemplate: `${SITE_URL}/products?q={search_term_string}`,
+    },
+    'query-input': 'required name=search_term_string',
+  },
 }
 
 const nav = [
@@ -50,6 +65,11 @@ export default function RootLayout({ children }) {
           id="org-schema"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+        <Script
+          id="website-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
 
         {/* Utility / trust bar */}

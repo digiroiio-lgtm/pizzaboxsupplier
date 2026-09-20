@@ -1,6 +1,20 @@
 import Link from 'next/link'
+import Script from 'next/script'
 import { SITE_URL, BRAND, products, sizes } from '@/lib/content'
 import { ProductCard, SizeCard, QuoteCTA, BreadcrumbNav } from '@/components/sections'
+
+const itemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Wholesale Pizza Box Products',
+  url: `${SITE_URL}/products`,
+  itemListElement: products.map((product, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: product.title,
+    url: `${SITE_URL}/products/${product.slug}`,
+  })),
+}
 
 export const metadata = {
   title: 'Wholesale Pizza Box Products — All Types & Materials',
@@ -22,6 +36,7 @@ const breadcrumbs = [
 export default function ProductsPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
+      <Script id="products-itemlist" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
       <BreadcrumbNav items={breadcrumbs} />
 
       <div className="mb-10">

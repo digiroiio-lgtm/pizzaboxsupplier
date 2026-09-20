@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { RFQ_COMPANY_TYPES, RFQ_VOLUME_TIERS, RFQ_FREQUENCIES, VALUE_PROPS } from '@/lib/content'
+import { SITE_URL, RFQ_COMPANY_TYPES, RFQ_VOLUME_TIERS, RFQ_FREQUENCIES, VALUE_PROPS } from '@/lib/content'
 
 export function ValuePropBadges() {
   return (
@@ -266,8 +266,23 @@ export function FAQSection({ faqs }) {
 }
 
 export function BreadcrumbNav({ items }) {
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: item.label,
+      item: item.href ? `${SITE_URL}${item.href}` : undefined,
+    })),
+  }
+
   return (
     <nav aria-label="Breadcrumb" className="mb-6">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <ol className="flex flex-wrap items-center gap-1.5 text-sm text-gray-500">
         {items.map((item, i) => (
           <li key={item.href || item.label} className="flex items-center gap-1.5">

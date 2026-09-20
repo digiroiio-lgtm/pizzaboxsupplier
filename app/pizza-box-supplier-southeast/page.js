@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { SITE_URL, BRAND, regionPages } from '@/lib/content'
+import { SITE_URL, BRAND, regionPages, products } from '@/lib/content'
 import { BreadcrumbNav, LeadForm } from '@/components/sections'
 
 const region = regionPages.find(r => r.slug === 'pizza-box-supplier-southeast')
@@ -78,6 +78,38 @@ export default function SoutheastPage() {
             <Link key={link.href} href={link.href} style={{ border: '1px solid var(--color-wpb-gray-border)', background: 'white' }} className="group rounded-lg p-4 hover:shadow-md transition-shadow">
               <div style={{ color: 'var(--color-wpb-navy)' }} className="font-semibold text-sm group-hover:underline">{link.label}</div>
               <div className="text-xs text-gray-400 mt-1">View state program →</div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="mb-12">
+        <h2 style={{ color: 'var(--color-wpb-navy)' }} className="text-xl font-bold mb-4">Available Products</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-3">
+          {products.slice(0, 6).map((product) => (
+            <Link key={product.slug} href={`/products/${product.slug}`} style={{ border: '1px solid var(--color-wpb-gray-border)', background: 'white' }} className="group rounded-lg p-4 hover:shadow-md transition-shadow">
+              <div style={{ color: 'var(--color-wpb-navy)' }} className="font-semibold text-sm group-hover:underline">{product.title}</div>
+              <div className="text-xs text-gray-500 mt-1">{product.sizes.join(', ')}</div>
+            </Link>
+          ))}
+        </div>
+        <div className="flex gap-4 text-sm">
+          <Link href="/products" style={{ color: 'var(--color-wpb-red)' }} className="font-semibold hover:underline">All products →</Link>
+          <Link href="/pizza-box-sizes" style={{ color: 'var(--color-wpb-red)' }} className="font-semibold hover:underline">Size guide →</Link>
+        </div>
+      </section>
+
+      <section className="mb-12">
+        <h2 style={{ color: 'var(--color-wpb-navy)' }} className="text-xl font-bold mb-4">Related East Coast Programs</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {[
+            { label: 'Northeast', href: '/pizza-box-supplier-northeast', desc: 'New York, New Jersey, PA — Port of NY/NJ' },
+            { label: 'Mid-Atlantic', href: '/pizza-box-supplier-mid-atlantic', desc: 'Virginia, Maryland, DC — Port of Virginia' },
+            { label: 'USA Supply', href: '/pizza-box-supplier-usa', desc: 'National container-volume programs' },
+          ].map((link) => (
+            <Link key={link.href} href={link.href} style={{ border: '1px solid var(--color-wpb-gray-border)', background: 'white' }} className="group rounded-xl p-5 hover:shadow-md transition-shadow">
+              <div style={{ color: 'var(--color-wpb-navy)' }} className="font-bold text-sm mb-1 group-hover:underline">{link.label}</div>
+              <div className="text-xs text-gray-500">{link.desc}</div>
             </Link>
           ))}
         </div>

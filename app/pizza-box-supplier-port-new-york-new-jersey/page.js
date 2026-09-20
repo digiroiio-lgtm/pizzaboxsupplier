@@ -1,5 +1,15 @@
-import { SITE_URL, BRAND, portPages } from '@/lib/content'
-import { BreadcrumbNav, LeadForm, QuoteCTA } from '@/components/sections'
+import Link from 'next/link'
+import { SITE_URL, BRAND, portPages, products } from '@/lib/content'
+import { BreadcrumbNav, LeadForm } from '@/components/sections'
+
+const STATE_SLUGS = {
+  'New York': '/pizza-box-supplier-new-york',
+  'New Jersey': '/pizza-box-supplier-new-jersey',
+  'Virginia': '/pizza-box-supplier-virginia',
+  'Georgia': '/pizza-box-supplier-georgia',
+  'Florida': '/pizza-box-supplier-florida',
+  'Pennsylvania': '/pizza-box-supplier-pennsylvania',
+}
 
 const port = portPages.find(p => p.slug === 'pizza-box-supplier-port-new-york-new-jersey')
 
@@ -97,11 +107,34 @@ export default function PortNYNJPage() {
           <section className="mb-8">
             <h2 style={{ color: 'var(--color-wpb-navy)' }} className="text-xl font-bold mb-3">States Covered from NY/NJ</h2>
             <div className="flex flex-wrap gap-2">
-              {port.statesCovered.map((state) => (
-                <span key={state} style={{ background: 'var(--color-wpb-gray)', color: 'var(--color-wpb-navy)' }} className="text-xs font-semibold px-3 py-1.5 rounded-full">
-                  {state}
-                </span>
+              {port.statesCovered.map((state) => {
+                const slug = STATE_SLUGS[state]
+                return slug ? (
+                  <Link key={state} href={slug} style={{ background: 'var(--color-wpb-gray)', color: 'var(--color-wpb-navy)' }} className="text-xs font-semibold px-3 py-1.5 rounded-full hover:shadow-sm transition-shadow">
+                    {state}
+                  </Link>
+                ) : (
+                  <span key={state} style={{ background: 'var(--color-wpb-gray)', color: 'var(--color-wpb-navy)' }} className="text-xs font-semibold px-3 py-1.5 rounded-full">
+                    {state}
+                  </span>
+                )
+              })}
+            </div>
+          </section>
+
+          <section className="mb-8">
+            <h2 style={{ color: 'var(--color-wpb-navy)' }} className="text-xl font-bold mb-4">Available Products</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
+              {products.slice(0, 4).map((product) => (
+                <Link key={product.slug} href={`/products/${product.slug}`} style={{ border: '1px solid var(--color-wpb-gray-border)', background: 'white' }} className="group rounded-lg p-3 hover:shadow-md transition-shadow">
+                  <div style={{ color: 'var(--color-wpb-navy)' }} className="font-semibold text-sm group-hover:underline">{product.title}</div>
+                  <div className="text-xs text-gray-500 mt-0.5">{product.sizes.slice(0, 3).join(', ')}</div>
+                </Link>
               ))}
+            </div>
+            <div className="flex gap-4 text-sm">
+              <Link href="/products" style={{ color: 'var(--color-wpb-red)' }} className="font-semibold hover:underline">All products →</Link>
+              <Link href="/pizza-box-sizes" style={{ color: 'var(--color-wpb-red)' }} className="font-semibold hover:underline">Size guide →</Link>
             </div>
           </section>
         </div>
@@ -141,6 +174,20 @@ export default function PortNYNJPage() {
           </div>
         </div>
       </div>
+
+      <section className="mb-14">
+        <h2 style={{ color: 'var(--color-wpb-navy)' }} className="text-xl font-bold mb-4">Other East Coast Programs</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {portPages.filter(p => p.slug !== port.slug).map((p) => (
+            <Link key={p.slug} href={`/${p.slug}`} style={{ border: '1px solid var(--color-wpb-gray-border)', background: 'white' }} className="group rounded-xl p-5 hover:shadow-md transition-shadow">
+              <div style={{ color: 'var(--color-wpb-red)' }} className="text-xs font-semibold uppercase tracking-wide mb-1">{p.region}</div>
+              <div style={{ color: 'var(--color-wpb-navy)' }} className="font-bold text-sm mb-2">{p.portName}</div>
+              <div className="text-xs text-gray-500">{p.statesCovered.slice(0, 3).join(', ')}</div>
+              <div style={{ color: 'var(--color-wpb-red)' }} className="text-xs font-semibold mt-3 group-hover:underline">View port program →</div>
+            </Link>
+          ))}
+        </div>
+      </section>
 
       <section style={{ background: 'var(--color-wpb-gray)', borderRadius: '12px' }} className="p-6 sm:p-10">
         <h2 style={{ color: 'var(--color-wpb-navy)' }} className="text-2xl font-bold mb-3 text-center">Request Pricing — NY/NJ Port Program</h2>
