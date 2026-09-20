@@ -89,14 +89,15 @@ export default function HomePage() {
               </div>
               <ValuePropBadges />
             </div>
-            <div className="relative hidden lg:block" style={{ height: '440px', borderRadius: '12px', overflow: 'hidden' }}>
+            <div className="hidden lg:block" style={{ borderRadius: '12px', overflow: 'hidden' }}>
               <Image
                 src="/lpack-1776968243178-header.png"
                 alt="Wholesale pizza boxes stacked for distribution — container-volume supply programs"
-                fill
+                width={750}
+                height={429}
                 priority
                 sizes="50vw"
-                style={{ objectFit: 'cover', objectPosition: 'center' }}
+                style={{ width: '100%', height: 'auto', display: 'block' }}
               />
             </div>
           </div>
