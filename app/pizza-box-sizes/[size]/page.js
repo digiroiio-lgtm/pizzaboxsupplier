@@ -98,6 +98,25 @@ export default function SizePage({ params }) {
               </p>
             </section>
 
+            {/* Dimension guide cross-link for 12", 14", 16" — transactional/informational intent firewall */}
+            {['12', '14', '16'].includes(String(size.inches)) && (
+              <section className="mb-10 p-4 rounded-lg" style={{ background: 'var(--color-wpb-gray)', border: '1px solid var(--color-wpb-gray-border)' }}>
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <div className="text-xs font-semibold uppercase tracking-wide mb-1" style={{ color: 'var(--color-wpb-navy)' }}>Specification Guide</div>
+                    <p className="text-sm text-gray-700">Looking for detailed {size.inches}-inch pizza box dimensions, exterior measurements and board grade specifications?</p>
+                  </div>
+                  <Link
+                    href={`/resources/${size.inches}-inch-pizza-box-dimensions`}
+                    style={{ color: 'var(--color-wpb-red)', flexShrink: 0 }}
+                    className="text-sm font-semibold hover:underline whitespace-nowrap"
+                  >
+                    See dimensions guide →
+                  </Link>
+                </div>
+              </section>
+            )}
+
             {/* FAQ */}
             <section className="mb-10">
               <h2 style={{ color: 'var(--color-wpb-navy)' }} className="text-xl font-bold mb-5">Frequently Asked Questions</h2>

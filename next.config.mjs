@@ -36,6 +36,26 @@ const nextConfig = {
         destination: '/products',
         permanent: true,
       },
+      {
+        source: '/blog/wholesale-pizza-box-buying-guide',
+        destination: '/resources/how-to-buy-pizza-boxes-wholesale',
+        permanent: true,
+      },
+      {
+        source: '/blog/pizza-box-sizes-explained',
+        destination: '/resources/pizza-box-sizes-guide',
+        permanent: true,
+      },
+      {
+        source: '/blog/custom-printed-pizza-boxes-what-buyers-need-to-know',
+        destination: '/resources/custom-pizza-box-printing-guide',
+        permanent: true,
+      },
+      {
+        source: '/blog/container-load-pizza-boxes-guide',
+        destination: '/resources/pizza-box-container-quantity',
+        permanent: true,
+      },
     ]
   },
 }

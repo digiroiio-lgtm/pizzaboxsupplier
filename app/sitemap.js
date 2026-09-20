@@ -1,4 +1,5 @@
 import { SITE_URL, products, sizes, locationPages, portPages, regionPages, statePages } from '@/lib/content'
+import { contentGuides } from '@/lib/guides'
 
 const lastModified = new Date().toISOString()
 
@@ -62,6 +63,13 @@ export default function sitemap() {
     priority: 0.6,
   }))
 
+  const guidePagesUrls = contentGuides.map(({ slug }) => ({
+    url: `${SITE_URL}/resources/${slug}`,
+    lastModified,
+    changeFrequency: 'monthly',
+    priority: 0.7,
+  }))
+
   // Blog posts are noindex until content is published — excluded from sitemap
   return [
     ...staticPages,
@@ -71,5 +79,6 @@ export default function sitemap() {
     ...portPagesUrls,
     ...regionPagesUrls,
     ...statePagesUrls,
+    ...guidePagesUrls,
   ]
 }
