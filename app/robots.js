@@ -1,9 +1,14 @@
+import { SITE_URL } from '@/lib/content'
+
 export default function robots() {
   return {
-    rules: {
-      userAgent: "*",
-      allow: "/",
-    },
-    sitemap: "https://pizzaboxsupplier.com/sitemap.xml",
-  };
+    rules: [
+      {
+        userAgent: '*',
+        allow: '/',
+        disallow: ['/api/', '/authors/'],
+      },
+    ],
+    sitemap: `${SITE_URL}/sitemap.xml`,
+  }
 }
